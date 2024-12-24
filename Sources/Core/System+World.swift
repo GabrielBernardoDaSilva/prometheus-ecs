@@ -1,6 +1,6 @@
 //
 //  System+World.swift
-//  SwifiECS
+//  prometheus-ecs
 //
 //  Created by Gabriel Bernardo on 23/12/24.
 //
@@ -13,7 +13,9 @@ extension World {
     
     private func updateSystems() {
         systemManager.update()
-        systemManager.updateFunctional()    }
+        systemManager.updateFunctional()
+        coroutineManager.updateAllCoroutines()
+    }
     
     private func disposeSystems() {
         systemManager.dispose()

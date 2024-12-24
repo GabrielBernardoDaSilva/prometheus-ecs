@@ -1,6 +1,7 @@
 public enum ArchetypeError: Error {
     case componentNotFound
     case componentAlreadyRegistered
+    case entityNotFound
 }
 
 

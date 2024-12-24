@@ -1,6 +1,6 @@
 //
 //  System+Params.swift
-//  SwifiECS
+//  prometheus-ecs
 //
 //  Created by Gabriel Bernardo on 23/12/24.
 //

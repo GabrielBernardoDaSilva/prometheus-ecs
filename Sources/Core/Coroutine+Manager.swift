@@ -1,11 +1,11 @@
 //
 //  Coroutine+Manager.swift
-//  SwifiECS
+//  prometheus-ecs
 //
 //  Created by Gabriel Bernardo on 24/12/24.
 //
 
-public class CoroutineManager {
+public final class CoroutineManager {
     private var _coroutines: [CoroutineSignature: TimedCoroutine] = [:]
     private unowned let _world: World
     
@@ -15,6 +15,7 @@ public class CoroutineManager {
 }
 
 extension CoroutineManager {
+    @discardableResult
     public func addCoroutine(name: String, action coroutine: Action) -> CoroutineSignature{
         let timedCoroutine = TimedCoroutine(name, coroutine, _world)
         _coroutines[timedCoroutine.signature] = timedCoroutine
@@ -75,5 +76,18 @@ extension CoroutineManager {
             return _coroutines.first(where: { $0.value.name == name })?.value
         }
     }
+    
+    public func updateAllCoroutines() {
+        _coroutines.values.forEach { $0.next() }
+    }
 
+}
+
+
+extension CoroutineManager: SystemParams {
+    public static func getParam(_ world: World) -> CoroutineManager? {
+        world.coroutineManager
+    }
+    
+    
 }

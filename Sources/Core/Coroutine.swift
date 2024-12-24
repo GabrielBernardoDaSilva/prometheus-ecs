@@ -1,6 +1,6 @@
 //
 //  Coroutine.swift
-//  SwifiECS
+//  prometheus-ecs
 //
 //  Created by Gabriel Bernardo on 23/12/24.
 //
@@ -31,7 +31,7 @@ public typealias Action = [ (TimeInterval,(World) -> Void ) ]
 public class TimedCoroutine: Coroutine {
     private var _action: Action
     private var _currentStep = 0
-    private var _lastExecutionTime: Date?
+    private var _lastExecutionTime: Date
     private var _name: String
     private unowned var _world: World
     private var _isRunning: Bool = false
@@ -58,8 +58,10 @@ public class TimedCoroutine: Coroutine {
         _world = world
         _name = name
         _isRunning = true
+        _lastExecutionTime = Date()
     }
     
+    @discardableResult
     public func next() -> CoroutineState {
         guard _isRunning else {
             return CoroutineState.suspended
@@ -73,7 +75,7 @@ public class TimedCoroutine: Coroutine {
         let now = Date()
         
         
-        if _lastExecutionTime == nil || now.timeIntervalSince(_lastExecutionTime!) >= delay {
+        if  now.timeIntervalSince(_lastExecutionTime) >= delay {
             step(_world) // Execute the current step
             _lastExecutionTime = now
             _currentStep += 1

@@ -1,6 +1,6 @@
 //
 //  QueryBuilders.swift
-//  SwifiECS
+//  prometheus-ecs
 //
 //  Created by Gabriel Bernardo on 22/12/24.
 //
@@ -15,8 +15,8 @@ public struct QueryBuilder<each Comp>: QueryFactory where repeat each Comp: Comp
     
     public init() {}
     
-    public static func getComponentsSignature() -> [ComponentSignature] {
-        var signatures: [ComponentSignature] = []
+    public static func getComponentsSignature() -> [Signature] {
+        var signatures: [Signature] = []
         for type in repeat (each Comp).signature {
             signatures.append(type)
         }
@@ -24,7 +24,7 @@ public struct QueryBuilder<each Comp>: QueryFactory where repeat each Comp: Comp
     }
     
     public static func components(archetype: Archetype, entityId: Int) -> (repeat each Comp) {
-        return (repeat try! archetype.getComponent(entityId, of: (each Comp).self))
+        return (repeat try! archetype.getComponent(entityId, of: (each Comp).self)!)
     }
 }
 
@@ -36,8 +36,8 @@ public struct QueryBuilderExclude<each Comp>: QueryExcludeFactory where repeat e
     
     public init() {}
   
-    public static func getExcludedSignatures() -> [ComponentSignature] {
-        var signatures: [ComponentSignature] = []
+    public static func getExcludedSignatures() -> [Signature] {
+        var signatures: [Signature] = []
         for type in repeat (each Comp).signature {
             signatures.append(type)
         }
@@ -53,7 +53,7 @@ public struct NoExclusions: QueryExcludeFactory {
     public init(){
         
     }
-    public static func getExcludedSignatures() -> [ComponentSignature] {
+    public static func getExcludedSignatures() -> [Signature] {
         return []
     }
 }

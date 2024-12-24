@@ -7,7 +7,7 @@ public typealias Query<each Comps: Component> = QueryWithFilter<QueryBuilder<rep
 
 public final class QueryWithFilter<T: QueryFactory, F: QueryExcludeFactory>{
     public typealias ComponentTypes = T.Components
-
+    
     private unowned var _world: World
     fileprivate var _components: [T.Components] = []
     
@@ -16,17 +16,24 @@ public final class QueryWithFilter<T: QueryFactory, F: QueryExcludeFactory>{
         _world = world
     }
     
-
+    
     
     @discardableResult
     func execute() -> [T.Components]{
         var components: [T.Components] = []
         
+        let exludedComponet = F.getExcludedSignatures()
+        let tSignature = T.getComponentsSignature()
         
+        print(exludedComponet)
         for archetype in _world.entityManager.archetypes {
-            let tSignature = T.getComponentsSignature()
-            let contains = tSignature.allSatisfy(archetype.getTypes().contains)
-            if contains                {
+            
+            let archetypeSignature = archetype.getTypes()
+            
+            let contains = tSignature.allSatisfy(archetypeSignature.contains)
+            let excluded = archetypeSignature.contains(where: exludedComponet.contains)
+            
+            if contains && !excluded {
                 for (index, _) in archetype.entities.enumerated() {
                     let comps = T.components(archetype: archetype, entityId: index)
                     components.append(comps)
@@ -60,7 +67,7 @@ extension QueryWithFilter {
         public typealias Element = QueryWithFilter.ComponentTypes
         private var _query: QueryWithFilter
         private var _index: Int = 0
-    
+        
         init(query: QueryWithFilter) {
             _query = query
             let _ = _query.execute()

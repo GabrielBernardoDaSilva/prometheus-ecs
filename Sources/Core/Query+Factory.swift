@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  SwifiECS
+//  prometheus-ecs
 //
 //  Created by Gabriel Bernardo on 22/12/24.
 //
@@ -16,7 +16,7 @@ public protocol QueryFactory{
 
     static func components(archetype: Archetype, entityId: Int) -> Components
     
-    static func getComponentsSignature() ->[ComponentSignature]
+    static func getComponentsSignature() ->[Signature]
     
 }
 
@@ -24,5 +24,5 @@ public protocol QueryFactory{
 public protocol QueryExcludeFactory {
     init()
     
-    static func getExcludedSignatures() -> [ComponentSignature]
+    static func getExcludedSignatures() -> [Signature]
 }

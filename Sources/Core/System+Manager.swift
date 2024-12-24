@@ -1,13 +1,13 @@
 //
 //  SystemManager.swift
-//  SwifiECS
+//  prometheus-ecs
 //
 //  Created by Gabriel Bernardo on 24/12/24.
 //
 
 public class SystemManager {
     private var _systems: [System] = []
-    private var _systemsFunctional: [SystemFunctionExecution:[SystemExecutable]] = [:]
+    private var _systemsFunctional: [SystemFunctionExecution: [SystemExecutable]] = [:]
 }
 
 // MARK: System Class
@@ -15,15 +15,15 @@ extension SystemManager {
     public func addSystem(_ system: System) {
         _systems.append(system)
     }
-    
+
     public func start() {
         _systems.forEach { $0.start() }
     }
-    
+
     public func update() {
         _systems.forEach { $0.update() }
     }
-    
+
     public func dispose() {
         _systems.forEach { $0.dispose() }
     }
@@ -31,31 +31,34 @@ extension SystemManager {
 
 // MARK: System Functional
 extension SystemManager {
-    public func addSystemFunctional(schedule: SystemFunctionExecution, action systemFunctional: SystemExecutable) {
-        if let systemFunctional = _systemsFunctional[schedule] {
-            _systemsFunctional[schedule]?.append(contentsOf: systemFunctional)
+    public func addSystemFunctional(
+        schedule: SystemFunctionExecution, action systemFunctional: SystemExecutable
+    ) {
+        if let _ = _systemsFunctional[schedule] {
+            print("Add function")
+            _systemsFunctional[schedule]?.append(systemFunctional)
         } else {
+            print(" Create Add function")
             _systemsFunctional[schedule] = [systemFunctional]
         }
     }
-    
+
     private func executeSystemFunctional(schedule: SystemFunctionExecution) {
         _systemsFunctional[schedule]?.forEach { $0.run() }
     }
-    
+
     public func startFunctional() {
         executeSystemFunctional(schedule: .start)
     }
-    
+
     public func updateFunctional() {
         executeSystemFunctional(schedule: .update)
     }
-    
+
     public func disposeFunctional() {
         executeSystemFunctional(schedule: .dispose)
     }
 }
-
 
 // MARK: Run all systems
 
@@ -68,14 +71,12 @@ extension SystemManager {
         dispose()
         disposeFunctional()
     }
-    
-    
+
     public func runAllForegroundSystems(isRunning: Bool) {
         while isRunning {
             update()
             updateFunctional()
         }
-       
+
     }
 }
-

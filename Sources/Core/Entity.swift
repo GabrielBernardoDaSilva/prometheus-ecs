@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  SwifiECS
+//  prometheus-ecs
 //
 //  Created by Gabriel Bernardo on 22/12/24.
 //
@@ -33,9 +33,15 @@ public class Entity: Component {
     }
 }
 
+extension Entity: Equatable {
+    public static func == (lhs: Entity, rhs: Entity) -> Bool {
+        lhs.id == rhs.id
+    }
+}
+
 
 extension Entity: CustomStringConvertible {
     public var description: String {
-        "Entity: \(id) \(location)"
+        "Entity: Id: \(id), Location: \(location)"
     }
 }
