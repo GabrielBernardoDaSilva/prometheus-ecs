@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:SwifiECS}",
+            "name": "Debug SwifiECS",
+            "program": "${workspaceFolder:SwifiECS}/.build/debug/SwifiECS",
+            "preLaunchTask": "swift: Build Debug SwifiECS"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:SwifiECS}",
+            "name": "Release SwifiECS",
+            "program": "${workspaceFolder:SwifiECS}/.build/release/SwifiECS",
+            "preLaunchTask": "swift: Build Release SwifiECS"
+        }
+    ]
+}
