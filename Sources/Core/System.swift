@@ -29,18 +29,4 @@ public class System: SystemBase {
     open func dispose() {}
 }
 
-class SystemFunction<P: SystemParams> : SystemExecutable{
-    
-    private let _execute: (P) -> ()
-    public unowned let _world: World
-    init(execute: @escaping (P) -> (), world: World) {
-        _execute = execute
-        _world = world
-    }
-    
-    override func run() {
-        _execute(P.getParam(_world)!)
-    }
-    
-    
-}
+

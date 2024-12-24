@@ -6,20 +6,18 @@
 //
 
 extension World {
-    public func addSystem(_ system: System) {
-        systems.append(system)
-    }
-    
     private func startSystems() {
-        systems.forEach{$0.start()}
+        systemManager.start()
+        systemManager.startFunctional()
     }
     
     private func updateSystems() {
-        systems.forEach{$0.update()}
-    }
+        systemManager.update()
+        systemManager.updateFunctional()    }
     
     private func disposeSystems() {
-        systems.forEach{$0.dispose()}
+        systemManager.dispose()
+        systemManager.disposeFunctional()
     }
     
     public func executeSystems() {
@@ -41,8 +39,16 @@ extension World {
 
 
 extension World {
-    func addSystemFunction<P>(_ systemFunction: @escaping (P) -> ()) where P: SystemParams {
-        let f = SystemFunction<P>(execute: systemFunction, world: self)
-        f.run()
+    public func addSystem(_ system: System) {
+        systemManager.addSystem(system)
+    }
+}
+
+
+extension World {
+    @available(macOS 14.0, *)
+    func addSystemFunction<each P: SystemParams>(schedule: SystemFunctionExecution, _ systemFunction: @escaping (repeat each P) -> ()) where repeat each P: SystemParams {
+        let function = SystemFunction<repeat each P>(execute: systemFunction, world: self)
+        systemManager.addSystemFunctional(schedule: schedule, action: function)
     }
 }

@@ -2,11 +2,11 @@ import Foundation
 
 
 @available(macOS 14.0, *)
-typealias Query<each Comps: Component> = QueryWithFilter<QueryBuilder<repeat each Comps>, NoExclusions>
+public typealias Query<each Comps: Component> = QueryWithFilter<QueryBuilder<repeat each Comps>, NoExclusions>
 
 
-final class QueryWithFilter<T: QueryFactory, F: QueryExcludeFactory>{
-    typealias ComponentTypes = T.Components
+public final class QueryWithFilter<T: QueryFactory, F: QueryExcludeFactory>{
+    public typealias ComponentTypes = T.Components
 
     private unowned var _world: World
     fileprivate var _components: [T.Components] = []
@@ -23,7 +23,7 @@ final class QueryWithFilter<T: QueryFactory, F: QueryExcludeFactory>{
         var components: [T.Components] = []
         
         
-        for archetype in _world.archetypes {
+        for archetype in _world.entityManager.archetypes {
             let tSignature = T.getComponentsSignature()
             let contains = tSignature.allSatisfy(archetype.getTypes().contains)
             if contains                {
@@ -41,13 +41,13 @@ final class QueryWithFilter<T: QueryFactory, F: QueryExcludeFactory>{
 }
 
 extension QueryWithFilter: Sequence  {
-    func makeIterator() -> QueryIterator {
+    public func makeIterator() -> QueryIterator {
         QueryIterator(query: self)
     }
 }
 
 extension QueryWithFilter: SystemParams {
-    static func getParam(_ world: World) -> Self? {
+    public static func getParam(_ world: World) -> Self? {
         .init(world)
     }
 }
@@ -56,8 +56,8 @@ extension QueryWithFilter: SystemParams {
 
 
 extension QueryWithFilter {
-    class QueryIterator: IteratorProtocol {
-        typealias Element = QueryWithFilter.ComponentTypes
+    public class QueryIterator: IteratorProtocol {
+        public typealias Element = QueryWithFilter.ComponentTypes
         private var _query: QueryWithFilter
         private var _index: Int = 0
     
@@ -67,7 +67,7 @@ extension QueryWithFilter {
         }
         
         
-        func next() -> QueryWithFilter.ComponentTypes? {
+        public func next() -> QueryWithFilter.ComponentTypes? {
             let component = _query._components[safe: _index]
             _index += 1
             return component

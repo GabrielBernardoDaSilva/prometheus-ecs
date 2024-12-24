@@ -1,6 +1,6 @@
 import Foundation
 
-final class Archetype {
+public final class Archetype {
     var components: [ComponentSignature: ComponentList] = [:]
     var entities: [Entity] = []
     

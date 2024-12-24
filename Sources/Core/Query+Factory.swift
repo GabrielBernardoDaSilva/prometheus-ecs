@@ -8,7 +8,7 @@
 import Foundation
 
 
-protocol QueryFactory{
+public protocol QueryFactory{
     associatedtype Components
     associatedtype ComponentTypes
     
@@ -21,7 +21,7 @@ protocol QueryFactory{
 }
 
 
-protocol QueryExcludeFactory {
+public protocol QueryExcludeFactory {
     init()
     
     static func getExcludedSignatures() -> [ComponentSignature]

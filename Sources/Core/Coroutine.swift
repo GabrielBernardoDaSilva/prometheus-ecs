@@ -13,8 +13,7 @@ public protocol Coroutine {
 
 
 public struct CoroutineSignature{
-    public typealias Identifier = UUID
-    public let id : Identifier
+    public let id : IdentifierUUID
     
     @usableFromInline init() {
         id = .init()
@@ -36,6 +35,7 @@ public class TimedCoroutine: Coroutine {
     private var _name: String
     private unowned var _world: World
     private var _isRunning: Bool = false
+
     
     private let _coroutineSignature: CoroutineSignature = .init()
     

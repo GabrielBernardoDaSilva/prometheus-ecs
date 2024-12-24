@@ -7,11 +7,12 @@ public protocol Component: AnyObject {
 }
 
 public struct ComponentSignature{
-    public typealias Identifier = Int
-    public let id : Identifier
+    private let _id : Identifier
+    
+    public var id: Identifier { _id }
     
     @usableFromInline init(_ componentType: (some Component).Type) {
-        self.id = ObjectIdentifier(componentType).hashValue
+        _id = ObjectIdentifier(componentType).hashValue
     }
 }
 

@@ -88,13 +88,13 @@ if #available(macOS 14.0.0, *) {
         print(p, e.health)
     }
 
-    func spawn( query: Query<Health>) {
+    func spawn(entity: EntityManager, query: Query<Health, Position>) {
        
     }
 
     let a = Query<Health, Position>.getParam(world)
     
-    world.addSystemFunction(spawn)
+    world.addSystemFunction(schedule: .start, spawn)
    
 
 

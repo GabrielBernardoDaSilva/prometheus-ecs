@@ -9,7 +9,7 @@ import Foundation
 
 
 
-class Entity: Component {
+public class Entity: Component {
     private let _id: Int
     private var _location: Int
     
@@ -35,7 +35,7 @@ class Entity: Component {
 
 
 extension Entity: CustomStringConvertible {
-    var description: String {
+    public var description: String {
         "Entity: \(id) \(location)"
     }
 }

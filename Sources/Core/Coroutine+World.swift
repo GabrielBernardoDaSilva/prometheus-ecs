@@ -8,46 +8,32 @@
 extension World {
     
     public func addCoroutine(name: String, action coroutine: Action) -> CoroutineSignature{
-        let timedCoroutine = TimedCoroutine(name, coroutine, self)
-        coroutines[timedCoroutine.signature] = timedCoroutine
-        return timedCoroutine.signature
+        coroutineManager.addCoroutine(name: name, action: coroutine)
     }
     
     public func removeCoroutine(signature: SignatureType) throws(CoroutineError) {
-        switch signature {
-        case .coroutine(let signature):
-            guard coroutines[signature] != nil else {
-                throw CoroutineError.coroutineNotFounded
-            }
-            coroutines[signature] = nil
-        case .named(let name):
-            guard let coroutine = coroutines.first(where: { $0.value.name == name }) else {
-                throw CoroutineError.coroutineNotFounded
-            }
-            coroutines[coroutine.key] = nil
-        }
-        
-        
+        try coroutineManager.removeCoroutine(signature: signature)
     }
     
     public func excuteCoroutines() {
-        for coroutine in coroutines.values {
-            coroutine.next() == .finished ? coroutines[coroutine.signature] = nil : ()
-        }
+        coroutineManager.excuteCoroutines()
     }
     
     public func stopCoroutines(signature: SignatureType) throws (CoroutineError){
-        guard let coroutine = searchCoroutine(signature: signature) else { throw CoroutineError.coroutineNotFounded }
-        coroutine.isRunning = false
-        
+        try coroutineManager.stopCoroutines(signature: signature)
     }
     
-    private func searchCoroutine(signature: SignatureType) -> TimedCoroutine? {
-        switch signature {
-        case .coroutine(let signature):
-            return coroutines[signature]
-        case .named(let name):
-            return coroutines.first(where: { $0.value.name == name })?.value
-        }
+    public func stopAllCoroutines(){
+        coroutineManager.stopAllCoroutines()
     }
+    
+    public func resumeCoroutines(signature: SignatureType) throws (CoroutineError){
+        try coroutineManager.resumeCoroutines(signature: signature)
+    }
+    
+    public func resumeAllCoroutines(){
+        coroutineManager.resumeAllCoroutines()
+    }
+    
+   
 }
