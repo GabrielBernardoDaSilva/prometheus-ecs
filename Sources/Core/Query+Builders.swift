@@ -6,7 +6,6 @@
 //
 
 
-@available(macOS 14.0.0, *)
 public struct QueryBuilder<each Comp>: QueryFactory where repeat each Comp: Component {
    
     
@@ -29,7 +28,6 @@ public struct QueryBuilder<each Comp>: QueryFactory where repeat each Comp: Comp
 }
 
 
-@available(macOS 14.0.0, *)
 public struct QueryBuilderExclude<each Comp>: QueryExcludeFactory where repeat each Comp: Component {
  
     typealias ComponentTypes = (repeat (each Comp).Type)

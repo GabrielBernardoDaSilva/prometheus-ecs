@@ -48,7 +48,6 @@ extension World {
 
 
 extension World {
-    @available(macOS 14.0, *)
     func addSystemFunction<each P: SystemParams>(schedule: SystemFunctionExecution, _ systemFunction: @escaping (repeat each P) -> ()) where repeat each P: SystemParams {
         let function = SystemFunction<repeat each P>(execute: systemFunction, world: self)
         systemManager.addSystemFunctional(schedule: schedule, action: function)

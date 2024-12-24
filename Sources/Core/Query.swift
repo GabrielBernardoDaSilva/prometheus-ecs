@@ -1,7 +1,6 @@
 import Foundation
 
 
-@available(macOS 14.0, *)
 public typealias Query<each Comps: Component> = QueryWithFilter<QueryBuilder<repeat each Comps>, NoExclusions>
 
 

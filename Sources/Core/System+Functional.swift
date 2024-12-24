@@ -6,7 +6,6 @@
 //
 
 
-@available(macOS 14.0, *)
 public final class SystemFunction<each P: SystemParams> : SystemExecutable{
     public typealias Param = (repeat each P) -> ()
     
