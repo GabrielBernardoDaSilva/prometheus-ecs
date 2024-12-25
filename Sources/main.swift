@@ -169,5 +169,3 @@ world.addSystemFunction(schedule: .start, coroutineManagerTest)
 
 world.executeSystems()
 world.entityManager.printAllArchetypes()
-
-

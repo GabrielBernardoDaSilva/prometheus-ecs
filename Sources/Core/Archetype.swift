@@ -57,7 +57,6 @@ extension Archetype {
         
         // remove entity
         entities.remove(at: entityIndex)
-        print("migrating ")
         
         return (entity, components)
     }
