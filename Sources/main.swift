@@ -167,36 +167,36 @@ world.addSystemFunction(schedule: .start, getResource)
 world.addSystemFunction(schedule: .start, coroutineManagerTest)
 
 
-//world.executeSystems()
-//world.entityManager.printAllArchetypes()
+world.executeSystems()
+world.entityManager.printAllArchetypes()
 
 
-struct NewPosition: Positionable {
-    var x: Int
-    var y: Int
-}
+//struct NewPosition: Positionable {
+//    var x: Int
+//    var y: Int
+//}
+//
 
 
 
-
-var contigeusList = ContiguousList<NewPosition>()
-contigeusList.append(NewPosition(x: 1, y: 2))
-contigeusList.append(NewPosition(x: 3, y: 4))
-contigeusList.append(NewPosition(x: 5, y: 6))
-contigeusList.append(NewPosition(x: 7, y: 8))
-contigeusList.append(NewPosition(x: 9, y: 10))
-contigeusList.append(NewPosition(x: 11, y: 12))
-
-contigeusList.printList()
-
-let position = try contigeusList.getElementMutate(at: 2)
-position.pointee!.x = 20
-print( " Retrive pointer \(position.pointee!.x)")
-
-let lastItem = try contigeusList.pop()
-print("Remove \(lastItem!.x)")
-
-contigeusList.printList()
-let removeItem = try contigeusList.removeAt(index: 2)
-print("RemoveAt \( removeItem!.x)")
-contigeusList.printList()
+//var contigeusList = ContiguousList<NewPosition>()
+//contigeusList.append(NewPosition(x: 1, y: 2))
+//contigeusList.append(NewPosition(x: 3, y: 4))
+//contigeusList.append(NewPosition(x: 5, y: 6))
+//contigeusList.append(NewPosition(x: 7, y: 8))
+//contigeusList.append(NewPosition(x: 9, y: 10))
+//contigeusList.append(NewPosition(x: 11, y: 12))
+//
+//contigeusList.printList()
+//
+//let position = try contigeusList.getElementMutate(at: 2)
+//position.pointee!.x = 20
+//print( " Retrive pointer \(position.pointee!.x)")
+//
+//let lastItem = try contigeusList.pop()
+//print("Remove \(lastItem!.x)")
+//
+//contigeusList.printList()
+//let removeItem = try contigeusList.removeAt(index: 2)
+//print("RemoveAt \( removeItem!.x)")
+//contigeusList.printList()

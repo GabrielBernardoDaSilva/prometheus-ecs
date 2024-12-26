@@ -35,10 +35,8 @@ extension SystemManager {
         schedule: SystemFunctionExecution, action systemFunctional: SystemExecutable
     ) {
         if let _ = _systemsFunctional[schedule] {
-            print("Add function")
             _systemsFunctional[schedule]?.append(systemFunctional)
         } else {
-            print(" Create Add function")
             _systemsFunctional[schedule] = [systemFunctional]
         }
     }

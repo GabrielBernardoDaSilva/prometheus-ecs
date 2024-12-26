@@ -24,7 +24,6 @@ public final class QueryWithFilter<T: QueryFactory, F: QueryExcludeFactory>{
         let exludedComponet = F.getExcludedSignatures()
         let tSignature = T.getComponentsSignature()
         
-        print(exludedComponet)
         for archetype in _world.entityManager.archetypes {
             
             let archetypeSignature = archetype.getTypes()
